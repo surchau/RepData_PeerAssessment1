@@ -56,8 +56,10 @@ For this part of the assignment, you can ignore the missing values in the datase
 ``` {r histogram}
 stepsByDay <- aggregate(steps ~ date, dataActivity, sum)
 str(stepsByDay)
-hist(stepsByDay$steps, main = paste("Total Number of Steps Taken  Each Day"),
+g1 <-hist(stepsByDay$steps, main = paste("Total Number of Steps Taken  Each Day"),
      col="blue", xlab = "Number of Steps")
+print(g1)
+dev.copy(png,"g1.png")
 
 ```
 
@@ -76,9 +78,11 @@ rMedian
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 ```{r timeSeriesPlot}
 stepsByInterval <- aggregate(steps ~ interval, dataActivity, mean )
-plot(stepsByInterval$interval, stepsByInterval$steps, type = "l",
+g2 <- plot(stepsByInterval$interval, stepsByInterval$steps, type = "l",
      xlab = "Interval", ylab = "Number of Steps", 
      main = "Average Number of Steps per day by Interval")
+print(g2)
+dev.copy(png, "g2.png")
 ```
 
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
@@ -114,9 +118,11 @@ head(newActivity)
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-``` {r}
+```{r}
 stepsByDayNew <- aggregate(steps ~ date, newActivity, sum)
-hist(stepsByDayNew$steps, main = "Total Steps Each Day", col="blue", xlab="Number of Steps")
+g3 <- hist(stepsByDayNew$steps, main = "Total Steps Each Day", col="blue", xlab="Number of Steps")
+print(g3)
+dev.copy(png, "g3.png")
 ```
 
 Calculate new mean and median for imputed data.
@@ -163,5 +169,7 @@ head(stepsByIntervalNew)
 2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
 ```{r}
 library(lattice)
-xyplot(stepsByIntervalNew$steps ~ stepsByIntervalNew$interval|stepsByIntervalNew$dow, main = "Average Steps Per Day by Interval", xlab="Interval", ylab="Number of Steps", layout=c(1,2), type="l")
+g4 <- xyplot(stepsByIntervalNew$steps ~ stepsByIntervalNew$interval|stepsByIntervalNew$dow, main = "Average Steps Per Day by Interval", xlab="Interval", ylab="Number of Steps", layout=c(1,2), type="l")
+print(g4)
+dev.copy(png,"g4.png")
 ```
